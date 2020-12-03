@@ -1,0 +1,6 @@
+=== Trying pipe to %TEST_SERVER% --silent --domain pipe   /path/to/TESTDIR/part-0201-intialize-tls.txt   /path/to/TESTDIR/part-0000-connect-standard.txt   ...
+=== Connected to %TEST_SERVER% --silent --domain pipe   /path/to/TESTDIR/part-0201-intialize-tls.txt   /path/to/TESTDIR/part-0000-connect-standard.txt   .
+=== TLS started with cipher VERSION:CIPHER:BITS
+=== TLS no local certificate set
+=== TLS peer DN="/CN=node.example.com"
+=== Dropping connection

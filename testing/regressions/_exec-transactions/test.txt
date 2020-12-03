@@ -34,6 +34,8 @@
 ##    0 happy path
 
 05000 - misc stuff
+
+05000 - --quit-after
     0 --quit-after connect
 ##    1 --quit-after xclient - pending figuring out the right server actions for xclient
     2 --quit-after tls (with --tls)
@@ -50,9 +52,29 @@
 ##   13 --quit-after helo (with --xclient) (skipping until I figure out xclient)
    14 --quit-after auth (not using auth)
 
+05100 - --drop-after
+  100 --drop-after connect
+##    1 --drop-after xclient - pending figuring out the right server actions for xclient
+    2 --drop-after tls (with --tls)
+    3 --drop-after tls (with --tls-on-connect)
+    4 --drop-after helo
+    5 --drop-after auth
+    6 --drop-after mail
+    7 --drop-after rcpt
+##    8 --drop-after xclient (not using xclient) (unlike tls and auth, this isn't documented to fail no matter what - need to understand what's up)
+    9 --drop-after first-helo (without --tls)
+   10 --drop-after first-helo (with --tls)
+   11 --drop-after tls (nt using tls)
+   12 --drop-after helo (with --tls)
+##   13 --drop-after helo (with --xclient) (skipping until I figure out xclient)
+   14 --drop-after auth (not using auth)
+   15 --drop-after data
+   16 --drop-after dot
+
 part-0400-pipelining
 
 
+../../swaks --server g3 --port 1025 --to accept@node.example.com --from jj33@pobox.com --helo hserver --drop-after data
 
 
   %TESTDIR%/part-0000-connect-standard.txt \
@@ -82,4 +104,5 @@ part-0400-pipelining
   %TESTDIR%/part-2501-data-accept.txt \
   %TESTDIR%/part-2502-data-read.txt \
   %TESTDIR%/part-2503-data-reject.txt \
+  %TESTDIR%/part-2504-data-data-only.txt \
   %TESTDIR%/part-3000-shutdown-accept.txt \
