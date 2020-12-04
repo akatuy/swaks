@@ -71,6 +71,25 @@
    15 --drop-after data
    16 --drop-after dot
 
+05200 - --drop-after-send
+  200 --drop-after connect
+##    1 --drop-after xclient - pending figuring out the right server actions for xclient
+    2 --drop-after tls (with --tls)
+    3 --drop-after tls (with --tls-on-connect)
+    4 --drop-after helo
+    5 --drop-after auth
+    6 --drop-after mail
+    7 --drop-after rcpt
+##    8 --drop-after xclient (not using xclient) (unlike tls and auth, this isn't documented to fail no matter what - need to understand what's up)
+    9 --drop-after first-helo (without --tls)
+   10 --drop-after first-helo (with --tls)
+   11 --drop-after tls (nt using tls)
+   12 --drop-after helo (with --tls)
+##   13 --drop-after helo (with --xclient) (skipping until I figure out xclient)
+   14 --drop-after auth (not using auth)
+   15 --drop-after data
+   16 --drop-after dot
+
 part-0400-pipelining
 
 
