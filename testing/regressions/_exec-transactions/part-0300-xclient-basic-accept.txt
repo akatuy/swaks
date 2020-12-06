@@ -1,3 +1,2 @@
 get_line(); # XCLIENT
-include("$Bin/scripts/part-banner-standard.txt");
-include("$Bin/scripts/part-ehlo-all.txt");
+send_line("220 SERVER ESMTP ready");

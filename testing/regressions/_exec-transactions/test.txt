@@ -12,7 +12,24 @@
     0 happy path
 
 00300 - xclient
-##    0 happy path
+    0 happy path
+    1 --xclient-delim
+    2 --xclient-delim at beginning, end, consecutive are noops
+    3 --xclient
+    4 --xclient mixed with --xclient-SPECIFIC
+    5 --xclient, --xclient-SPECIFIC, --xclient-delim
+    6 --xclient allows invalid SPECIFIC
+    7 --xclient allows unadvertised SPECIFIC
+    8 --xclient-SPECIFIC fails when SPECIFIC isn't available
+    9 --xclient-no-verify allows --xclient-SPECIFIC to work even when SPECIFIC isn't available
+##   10 --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
+##   11 --xclient-before-starttls + --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
+   12 --xclient not advertised
+   13 --xclient not advertised --xclient-optional
+   14 --xclient not advertised --xclient-optional-strict
+   15 --xclient failed
+##   16 --xclient failed --xclient-optional (THIS HAS A WEIRD MESSAGE, SKIPPING FOR NOW)
+   17 --xclient failed --xclient-optional-strict
 
 00500 - prdr
     0 happy path - 3 addrs, 3 accepts
@@ -37,7 +54,7 @@
 
 05000 - --quit-after
     0 --quit-after connect
-##    1 --quit-after xclient - pending figuring out the right server actions for xclient
+    1 --quit-after xclient
     2 --quit-after tls (with --tls)
     3 --quit-after tls (with --tls-on-connect) ## This sends QUIT out of sync with the protocol but I think it's ok.  Either use --drop-after to not care about the protocol, or use `--tlsc --quit-after connect` to be in sync
     4 --quit-after helo
@@ -49,12 +66,12 @@
    10 --quit-after first-helo (with --tls)
    11 --quit-after tls (nt using tls)
    12 --quit-after helo (with --tls)
-##   13 --quit-after helo (with --xclient) (skipping until I figure out xclient)
+##   13 --quit-after helo (with --xclient) (SEEMS TO BE BROKEN - SHOULD BE QUITTING AT SECOND HELO, NOT FIRST)
    14 --quit-after auth (not using auth)
 
 05100 - --drop-after
   100 --drop-after connect
-##    1 --drop-after xclient - pending figuring out the right server actions for xclient
+    1 --drop-after xclient
     2 --drop-after tls (with --tls)
     3 --drop-after tls (with --tls-on-connect)
     4 --drop-after helo
@@ -66,7 +83,7 @@
    10 --drop-after first-helo (with --tls)
    11 --drop-after tls (nt using tls)
    12 --drop-after helo (with --tls)
-##   13 --drop-after helo (with --xclient) (skipping until I figure out xclient)
+##   13 --drop-after helo (with --xclient) (SEEMS TO BE BROKEN - SHOULD BE QUITTING AT SECOND HELO, NOT FIRST)
    14 --drop-after auth (not using auth)
    15 --drop-after data
    16 --drop-after dot
@@ -85,7 +102,7 @@
    10 --drop-after first-helo (with --tls)
    11 --drop-after tls (nt using tls)
    12 --drop-after helo (with --tls)
-##   13 --drop-after helo (with --xclient) (skipping until I figure out xclient)
+##   13 --drop-after helo (with --xclient) (SEEMS TO BE BROKEN - SHOULD BE QUITTING AT SECOND HELO, NOT FIRST)
    14 --drop-after auth (not using auth)
    15 --drop-after data
    16 --drop-after dot
@@ -108,9 +125,11 @@ part-0400-pipelining
   %TESTDIR%/part-0000-connect-standard.txt \
   %TESTDIR%/part-0100-ehlo-basic.txt \
   %TESTDIR%/part-0101-ehlo-all.txt \
+  %TESTDIR%/part-0102-ehlo-xclient-fewer.txt \
   %TESTDIR%/part-0200-starttls-basic.txt \
   %TESTDIR%/part-0201-intialize-tls.txt \
   %TESTDIR%/part-0300-xclient-basic-accept.txt \
+  %TESTDIR%/part-0301-xclient-basic-reject.txt \
   %TESTDIR%/part-0500-prdr-start.txt \
   %TESTDIR%/part-0501-prdr-addr-accept.txt \
   %TESTDIR%/part-0502-prdr-addr-reject.txt \
