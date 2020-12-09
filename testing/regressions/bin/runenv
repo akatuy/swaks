@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
 export TEST_SWAKS=../../swaks
-export PERL5LIB=lib/authen-ntlm-local
 export SWAKS_EDITOR='/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'
 export TEST_SERVER=../server/smtp-server.pl
+
+# only set the PERL5LIB if Authen::NTLM isn't available
+perl -MAuthen::NTLM -e ';' >/dev/null 2>&1
+if [ $? -ne 0 ] ; then
+  export PERL5LIB=lib/authen-ntlm-local
+fi
 
 # this can be really convenient when you have a ton of small changes to accept.  Don't have to (q)uit out of less
 #export PAGER=cat
