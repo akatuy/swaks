@@ -1,2 +1,2 @@
 get_line(); # auth plain
-send_line("235 Success");
+send_line("235 Authentication succeeded");
