@@ -52,31 +52,32 @@
     1 LOGIN success
     2 CRAM-MD5 success
     3 CRAM-SHA1 success
-##   4 DIGEST-MD5 success
-##    5 NTLM success
-#   10 PLAIN failed
-#   11 LOGIN failed
-#   12 CRAM-MD5 failed
-#   13 CRAM-SHA1 failure
+##    4 DIGEST-MD5 success
+    5 NTLM success
+   10 PLAIN failed
+   11 LOGIN failed
+   12 CRAM-MD5 failed
+   13 CRAM-SHA1 failure
 #   14 DIGEST-MD5 failure
-##   15 NTLM failure
-#   20 --auth -> choose protocol
-#   21 --auth not advertised
-#   22 --auth not advertised --auth-optional
-#   23 --auth-not-advertised --auth-optional-strict
-#   24 --auth failed --auth-optional
-#   25 --auth failed --auth-optional-strict
+   15 NTLM failure
+   20 --auth -> choose protocol (this relies on the fact that CRAM-MD5 is tried first in the code)
+   21 --auth not advertised
+   22 --auth not advertised --auth-optional
+   23 --auth-not-advertised --auth-optional-strict
+   24 --auth failed --auth-optional
+   25 --auth failed --auth-optional-strict
 ##   26 --auth pulls capabilities from second EHLO when --tls is used
 #   27 --auth-extra domain DIGEST-MD5
 #   28 --auth-extra realm DIGEST-MD5
 #   29 --auth-extra dmd5-serv-type DIGEST-MD5
 #   30 --auth-extra dmd5-host DIGEST-MD5
 #   31 --auth-extra dmd5-serv-name DIGEST-MD5
-##   32 --auth-extra domain NTLM
-##   33 --auth-extra realm NTLM
-#   34 --auth-map
-#   35 --auth-plaintext
-#   36 --auth-hide-password
+##   32 --auth-extra domain NTLM - leave off for now, doesn't seem to get sent even when we specify it, either a library or protocol issue
+##   33 --auth-extra realm NTLM - leave off for now, doesn't seem to get sent even when we specify it, either a library or protocol issue
+   34 --auth-map
+   35 --auth-plaintext
+   36 --auth-hide-password
+   37 --auth-plaintext --auth-hide-password
 
 05000 - misc stuff
 
