@@ -759,7 +759,7 @@ FIXED_NEVER_USERS=root
 # configuration to make use of the mechanism(s) selected.
 
  AUTH_CRAM_MD5=yes
-# AUTH_CYRUS_SASL=yes
+ AUTH_CYRUS_SASL=yes
 # AUTH_DOVECOT=yes
 # AUTH_EXTERNAL=yes
 # AUTH_GSASL=yes
@@ -782,7 +782,7 @@ FIXED_NEVER_USERS=root
 # Similarly for GNU SASL, unless pkg-config is used via AUTH_GSASL_PC.
 # Ditto for AUTH_HEIMDAL_GSSAPI(_PC).
 
-# AUTH_LIBS=-lsasl2
+ AUTH_LIBS=-lsasl2
 # AUTH_LIBS=-lgsasl
 # AUTH_LIBS=-lgssapi -lheimntlm -lkrb5 -lhx509 -lcom_err -lhcrypto -lasn1 -lwind -lroken -lcrypt
 

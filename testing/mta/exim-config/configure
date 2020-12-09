@@ -1,5 +1,7 @@
 primary_hostname = node.example.com
 
+auth_advertise_hosts = *
+
 
 # The next three settings create two lists of domains and one list of hosts.
 # These lists are referred to later in this configuration using the syntax
@@ -64,7 +66,10 @@ acl_smtp_data_prdr =    acl_check_prdr
 .endif
 acl_smtp_data =         acl_check_data
 
+acl_smtp_auth = acl_check_auth
+
 # You should not change those settings until you understand how ACLs work.
+
 
 
 # If you are running a version of Exim that was compiled with the content-
@@ -96,7 +101,7 @@ acl_smtp_data =         acl_check_data
 
 # Allow any client to use TLS.
 
-# tls_advertise_hosts = *
+ tls_advertise_hosts = *
 
 # Specify the location of the Exim server's TLS certificate and private key.
 # The private key must not be encrypted (password protected). You can put
@@ -323,6 +328,10 @@ begin acl
 # This access control list is used for every RCPT command in an incoming
 # SMTP message. The tests are run in order until the address is either
 # accepted or denied.
+
+acl_check_auth:
+  warn set acl_c9 = <$pid.$tod_epoch@$primary_hostname>
+  accept
 
 acl_check_rcpt:
 
@@ -908,24 +917,43 @@ begin authenticators
 # use $auth2 as a lookup key, and compare $auth3 against the result of the
 # lookup, perhaps using the crypteq{}{} condition.
 
-#PLAIN:
-#  driver                     = plaintext
-#  server_set_id              = $auth2
-#  server_prompts             = :
-#  server_condition           = Authentication is not yet configured
-#  server_advertise_condition = ${if def:tls_in_cipher }
+PLAIN:
+  driver                     = plaintext
+  server_set_id              = $auth2
+  server_prompts             = :
+  server_condition           = ${if eq{$auth3}{validpassword}}
+  server_advertise_condition = true
 
 # LOGIN authentication has traditional prompts and responses. There is no
 # authorization ID in this mechanism, so unlike PLAIN the username and
 # password are $auth1 and $auth2. Apart from that you can use the same
 # server_condition setting for both authenticators.
 
-#LOGIN:
-#  driver                     = plaintext
-#  server_set_id              = $auth1
-#  server_prompts             = <| Username: | Password:
-#  server_condition           = Authentication is not yet configured
-#  server_advertise_condition = ${if def:tls_in_cipher }
+LOGIN:
+  driver                     = plaintext
+  public_name                = LOGIN
+  server_set_id              = $auth1
+  server_prompts             = <| Username: | Password:
+  server_condition           = ${if eq{$auth2}{validpassword}}
+  server_advertise_condition = *
+
+cram:
+  driver = cram_md5
+  public_name = CRAM-MD5
+  server_secret = validpassword
+
+digest_md5_sasl_server:
+  driver = cyrus_sasl
+  public_name = DIGEST-MD5
+  server_set_id = $auth1
+
+digest_md5:
+  driver = plaintext
+  public_name = CRAM-SHA1
+  server_prompts = $acl_c9
+  server_set_id = ${sg {${extract {1}{ }{$1} }} {[^a-zA-Z0-9.-_]} {?}}
+  server_condition = ${if eq {validuser}{${sg {${extract {1}{ }{$1} }} {[^a-zA-Z0-9.-_]} {?}}}{yes}{no}}
+
 
 
 ######################################################################
