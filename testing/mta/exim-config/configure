@@ -924,6 +924,14 @@ PLAIN:
   server_condition           = ${if eq{$auth3}{validpassword}}
   server_advertise_condition = true
 
+custom_plain:
+  driver                     = plaintext
+  public_name                = CUSTOM-PLAIN
+  server_set_id              = $auth2
+  server_prompts             = :
+  server_condition           = ${if eq{$auth3}{validpassword}}
+  server_advertise_condition = true
+
 # LOGIN authentication has traditional prompts and responses. There is no
 # authorization ID in this mechanism, so unlike PLAIN the username and
 # password are $auth1 and $auth2. Apart from that you can use the same
@@ -954,6 +962,10 @@ digest_md5:
   server_set_id = ${sg {${extract {1}{ }{$1} }} {[^a-zA-Z0-9.-_]} {?}}
   server_condition = ${if eq {validuser}{${sg {${extract {1}{ }{$1} }} {[^a-zA-Z0-9.-_]} {?}}}{yes}{no}}
 
+spa:
+  driver = spa
+  public_name = NTLM
+  server_password = validpassword
 
 
 ######################################################################
