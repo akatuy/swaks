@@ -19,5 +19,5 @@
 <-  220 TLS go ahead
 === TLS started with cipher VERSION:CIPHER:BITS
 === TLS no local certificate set
-=== TLS peer DN="/CN=node.example.com"
+=== TLS peer DN="/C=US/ST=Indiana/O=Swaks Development/CN=node.example.com/emailAddress=proj-swaks@jetmore.net"
 === Dropping connection

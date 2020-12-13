@@ -16,5 +16,5 @@
 <-  250-AUTH=login
 <-  250 HELP
  -> AUTH PLAIN AFVTRVJOQU1FAFBBU1NXT1JE
-<-  235 Success
+<-  235 Authentication succeeded
 === Dropping connection

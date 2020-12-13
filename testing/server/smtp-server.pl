@@ -61,8 +61,8 @@ for (my $i = 0; $i < @scriptFiles; $i++) {
   $scriptFiles[$i] = $info;
 }
 
-my $keyFile  = $opt{key}  || $Bin . '/test.key';
-my $certFile = $opt{cert} || $Bin . '/test.crt';
+my $keyFile  = $opt{key}  || $Bin . '/../certs/node.example.com.key';
+my $certFile = $opt{cert} || $Bin . '/../certs/node.example.com.crt';
 
 my $domain  = lc($opt{domain}) || 'inet';
 if ($domain !~ /^(unix|inet|pipe)$/) {
