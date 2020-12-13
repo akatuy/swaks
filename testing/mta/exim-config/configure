@@ -109,8 +109,8 @@ acl_smtp_auth = acl_check_auth
 # need the first setting, or in separate files, in which case you need both
 # options.
 
-# tls_certificate = /etc/ssl/exim.crt
-# tls_privatekey = /etc/ssl/exim.pem
+ tls_certificate = /home/jetmore/Documents/git/swaks/testing/certs/node.example.com.crt
+ tls_privatekey = /home/jetmore/Documents/git/swaks/testing/certs/node.example.com.key
 
 # For OpenSSL, prefer EC- over RSA-authenticated ciphers
 # tls_require_ciphers = ECDSA:RSA:!COMPLEMENTOFDEFAULT
