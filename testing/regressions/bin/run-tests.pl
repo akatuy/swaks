@@ -36,6 +36,7 @@ $testDir    =~ canonpath($testDir); # remove trailing slashes
 my $testRe  =  shift || '.'; # pattern to match test IDs against. Allows to run subset of tests by specifying, eg, '005.'
 my $outDir  =  catfile($testDir, "out-dyn");
 my $refDir  =  catfile($testDir, "out-ref");
+my $certDir =  catfile($Bin, '..', '..', 'certs');
 
 my $customTokens = {};
 my $tokens       = {
@@ -44,6 +45,7 @@ my $tokens       = {
 		'%TESTDIR%'  => $testDir,
 		'%OUTDIR%'   => $outDir,
 		'%REFDIR%'   => $refDir,
+		'%CERTDIR%'  => $certDir,
 		'%HOSTNAME%' => get_hostname(),
 		'%USERNAME%' => get_username(),
 	},
