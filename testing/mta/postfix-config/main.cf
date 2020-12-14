@@ -687,3 +687,7 @@ alias_maps  = texthash:/home/jetmore/Documents/git/swaks/testing/mta/postfix-con
 maillog_file = /dev/stdout
 smtpd_authorized_xclient_hosts = 192.168.0.0/16, 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12
 smtpd_authorized_xforward_hosts = 192.168.0.0/16, 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12
+
+smtpd_tls_cert_file = /home/jetmore/Documents/git/swaks/testing/certs/node.example.com.crt
+smtpd_tls_key_file = /home/jetmore/Documents/git/swaks/testing/certs/node.example.com.key
+smtpd_tls_security_level = may
