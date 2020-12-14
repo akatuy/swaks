@@ -22,8 +22,8 @@
     7 --xclient allows unadvertised SPECIFIC
     8 --xclient-SPECIFIC fails when SPECIFIC isn't available
     9 --xclient-no-verify allows --xclient-SPECIFIC to work even when SPECIFIC isn't available
-##   10 --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
-##   11 --xclient-before-starttls + --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
+   10 --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
+   11 --xclient-before-starttls + --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
    12 --xclient not advertised
    13 --xclient not advertised --xclient-optional
    14 --xclient not advertised --xclient-optional-strict
@@ -66,7 +66,7 @@
    23 --auth-not-advertised --auth-optional-strict
    24 --auth failed --auth-optional
    25 --auth failed --auth-optional-strict
-##   26 --auth pulls capabilities from second EHLO when --tls is used
+   26 --auth pulls capabilities from second EHLO when --tls is used
 #   27 --auth-extra domain DIGEST-MD5
 #   28 --auth-extra realm DIGEST-MD5
 #   29 --auth-extra dmd5-serv-type DIGEST-MD5
@@ -158,6 +158,7 @@ part-0400-pipelining
   %TESTDIR%/part-0101-ehlo-all.txt \
   %TESTDIR%/part-0102-ehlo-xclient-fewer.txt \
   %TESTDIR%/part-0103-ehlo-auth-extra.txt \
+  %TESTDIR%/part-0104-ehlo-tls-only.txt \
   %TESTDIR%/part-0200-starttls-basic.txt \
   %TESTDIR%/part-0201-intialize-tls.txt \
   %TESTDIR%/part-0300-xclient-basic-accept.txt \
