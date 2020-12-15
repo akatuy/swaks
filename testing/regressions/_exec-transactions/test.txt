@@ -7,11 +7,26 @@
     4 RCPT multiple recips (all failed)
    10 MAIL rejected
 
-
 00200 - tls
-    0 happy path
+    0 --tls success
+    1 --tls fail (not advertised)
+    2 --tls fail (something protocol related, not sure what yet) (NOTE THAT WE JUST EXIT, NOT QUIT - IS THAT CORRECT?)
+    3 --tls --tls-optional unadvertised (should succeed)
+#    4 --tls --tls-optional protocol (should succeed)
+    5 --tls --tls-optional-strict unadvertised (should succeed)
+#    6 --tls --tls-optional-strict protocol (should fail)
+    7 --tls-on-connect success
+    8 --tls-on-connect failure
+#   10 --tls-cert --tls-key
+   11 --tls-verify (should fail - server's key is not signed by a known CA)
+   12 --tls-verify --tls-ca-path (should succeed - server's key is signed by the ca)
+   13 --tls-get-peer-cert (STDOUT)
+   14 --tls-get-peer-cert (FILE)
+#   15 --tls-sni
+#   16 --tls-protocol (this might be difficult to get cross-platform reproducibility)
+#   17 --tls-cipher (this might be difficult to get cross-platform reproducibility)
 
-00300 - xclient
+00300 - xclient (COMPLETE)
     0 happy path
     1 --xclient-delim
     2 --xclient-delim at beginning, end, consecutive are noops
@@ -22,8 +37,8 @@
     7 --xclient allows unadvertised SPECIFIC
     8 --xclient-SPECIFIC fails when SPECIFIC isn't available
     9 --xclient-no-verify allows --xclient-SPECIFIC to work even when SPECIFIC isn't available
-   10 --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
-   11 --xclient-before-starttls + --xclient + --tls (SKIPPING - NEED POSTFIX TLS FOR REFERENCE)
+   10 --xclient + --tls
+   11 --xclient-before-starttls + --xclient + --tls
    12 --xclient not advertised
    13 --xclient not advertised --xclient-optional
    14 --xclient not advertised --xclient-optional-strict
@@ -31,7 +46,7 @@
 ##   16 --xclient failed --xclient-optional (THIS HAS A WEIRD MESSAGE, SKIPPING FOR NOW)
    17 --xclient failed --xclient-optional-strict
 
-00500 - prdr
+00500 - prdr (COMPLETE)
     0 happy path - 3 addrs, 3 accepts
     1 accept accept   fail (all fails post-PRDR)
     2 accept   fail accept (all fails post-PRDR)
@@ -159,6 +174,7 @@ part-0400-pipelining
   %TESTDIR%/part-0102-ehlo-xclient-fewer.txt \
   %TESTDIR%/part-0103-ehlo-auth-extra.txt \
   %TESTDIR%/part-0104-ehlo-tls-only.txt \
+  %TESTDIR%/part-0105-ehlo-post-tls-info.txt \
   %TESTDIR%/part-0200-starttls-basic.txt \
   %TESTDIR%/part-0201-intialize-tls.txt \
   %TESTDIR%/part-0300-xclient-basic-accept.txt \
