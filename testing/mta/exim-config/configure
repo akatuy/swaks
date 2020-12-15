@@ -2,6 +2,11 @@ primary_hostname = node.example.com
 
 auth_advertise_hosts = *
 
+.ifdef PROXY
+hosts_proxy = *
+.endif
+
+
 
 # The next three settings create two lists of domains and one list of hosts.
 # These lists are referred to later in this configuration using the syntax
