@@ -17,6 +17,7 @@
 
 
 use strict;
+no strict "subs";
 use IO::Socket;
 use Getopt::Long;
 use Net::SSLeay;
@@ -206,6 +207,7 @@ sub start_tls {
   Net::SSLeay::CTX_set_options($cxn{tls}{ctx}, &Net::SSLeay::OP_ALL);
   Net::SSLeay::CTX_use_RSAPrivateKey_file ($cxn{tls}{ctx}, $ssl_keyf, &Net::SSLeay::FILETYPE_PEM);
   Net::SSLeay::CTX_use_certificate_file ($cxn{tls}{ctx}, $ssl_certf, &Net::SSLeay::FILETYPE_PEM);
+  # Net::SSLeay::set_verify($cxn{tls}{ctx}, Net::SSLeay::VERIFY_PEER, \&verify);
 
   $cxn{tls}{ssl} = Net::SSLeay::new($cxn{tls}{ctx});
   if ($cxn{type} eq 'pipe') {
@@ -215,6 +217,27 @@ sub start_tls {
     Net::SSLeay::set_fd($cxn{tls}{ssl}, fileno($cxn{cxn}));
   }
   my $err = Net::SSLeay::accept($cxn{tls}{ssl}) ;
-  print L "* Cipher '", Net::SSLeay::get_cipher($cxn{tls}{ssl}), "'\n" if (!$opt{silent});
+  # print "err in TLS accept: $err\n" if ($err);
   $cxn{tls}{active} = 1;
+  $cxn{tls}{cipher}            = Net::SSLeay::get_cipher($cxn{tls}{ssl});
+  $cxn{tls}{peer_cert}         = Net::SSLeay::get_peer_certificate($cxn{tls}{ssl});
+  if ($cxn{tls}{peer_cert}) {
+    $cxn{tls}{peer_cert_subject} = Net::SSLeay::X509_NAME_oneline(Net::SSLeay::X509_get_subject_name($cxn{tls}{peer_cert}));
+  }
+  else {
+    $cxn{tls}{peer_cert_subject} = "No client certificate present";
+  }
+  print L "* Cipher '$cxn{tls}{cipher}'\n" if (!$opt{silent});
+
+  # my $err = Net::SSLeay::accept($cxn{tls}{ssl});
+  # print "err in TLS accept: $err\n" if ($err);
+  # $cxn{tls}{active}            = 1;
+  # $cxn{tls}{cipher}            = Net::SSLeay::get_cipher($cxn{tls}{ssl});
+  # $cxn{tls}{peer_cert}         = Net::SSLeay::get_peer_certificate($cxn{tls}{ssl});
+  # $cxn{tls}{peer_cert_subject} = Net::SSLeay::X509_NAME_oneline(Net::SSLeay::X509_get_subject_name($cxn{tls}{peer_cert}));
+  # print L "* Cipher '$cxn{tls}{cipher}'\n" if (!$opt{silent});
+}
+
+sub verify {
+  return 0; # 0 means ok
 }
