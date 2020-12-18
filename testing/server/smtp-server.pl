@@ -118,6 +118,10 @@ sub get_cxn {
   if ($s) {
     $cxn{cxn} = $s->accept();
     $cxn{type} = "socket";
+    if ($domain eq 'inet') {
+      $cxn{peer}{addr} = inet_ntoa($cxn{cxn}->peeraddr());
+      $cxn{peer}{port} = $cxn{cxn}->peerport();
+    }
   } else {
     $cxn{cxn_wr} = \*STDOUT;
     $cxn{cxn_re} = \*STDIN;
