@@ -19,6 +19,7 @@ environment/tooling:
 	perl must be in your path.
 	the Capture::Tiny perl module needs to be installed
 	the Text::Diff perl module needs to be installed
+	the Proc::Background perl module needs to be installed
 	all "optional" perl modules must be installed to run the test suite. (see Authen::NTLM note below)
 
 --

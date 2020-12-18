@@ -15,7 +15,7 @@ use File::Copy qw();
 use File::Spec::Functions qw(:ALL);
 use FindBin qw($Bin);
 use Getopt::Long;
-# use IPC::Open3;
+use Proc::Background;
 use Sys::Hostname;
 use Term::ReadKey;
 use Text::ParseWords;
@@ -38,6 +38,7 @@ my $outDir  =  catfile($testDir, "out-dyn");
 my $refDir  =  catfile($testDir, "out-ref");
 my $certDir =  catfile($Bin, '..', '..', 'certs');
 
+my @forks        = ();
 my $customTokens = {};
 my $tokens       = {
 	'global' => {
@@ -128,6 +129,7 @@ sub runTest {
 	my $outDir    = shift;
 	my $obj       = shift;
 	my $allTokens = {};
+	@forks        = ();
 
 	# set local tokens (currently only %TESTID% can be set)
 	$tokens->{'local'} = { '%TESTID%' => $obj->{'id'} }; # reset the local tokens and set id to the test ID
@@ -172,6 +174,10 @@ sub runTest {
 		my $failed = runResult($obj, $allTokens, $obj->{'test result'});
 		my $result = "$testDir/$obj->{id}: " . ($failed ? "FAIL ($failed)" : 'PASS');
 		saveResult($result);
+	}
+
+	foreach my $proc (@forks) {
+		$proc->die();
 	}
 }
 
@@ -389,6 +395,16 @@ sub runAction {
 
 		$stdinFile =~ s/^STDIN://;
 		captureOutput(\@args, $stdoutFile, $stderrFile, $stdinFile);
+	}
+	elsif ($verb eq 'FORK') {
+		$args[0] =~ s|/|\\|g if ($^O eq 'MSWin32');
+		debug('FORK', join('; ', @args));
+		debug('exec', join(' ', map { "'$_'" } @args));
+		my $proc = Proc::Background->new(@args);
+		if (!$proc->alive()) {
+			die "Unable to FORK @args: $!($@)\n";
+		}
+		push(@forks, $proc);
 	}
 	elsif ($verb eq 'DEFINE') {
 		debug('DEFINE', join('; ', @args));

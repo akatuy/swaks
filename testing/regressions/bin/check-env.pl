@@ -32,7 +32,7 @@ else {
 	print "NOK perl must be installed and in your path\n";
 }
 
-foreach my $module ('Capture::Tiny', 'Text::Diff') {
+foreach my $module ('Capture::Tiny', 'Text::Diff', 'Proc::Background') {
 	if (checkmod($module)) {
 		print "ok  $module\n";
 	}

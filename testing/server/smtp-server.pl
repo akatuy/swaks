@@ -141,12 +141,12 @@ sub set_up_cxn {
       warn("Couldn't be a unix domain server on $lint: $@");
       exit(2);
     }
-    print L "listening on $lint pid $$\n";
+    print L "listening on $lint pid $$\n" if (!$opt{silent});
   } else {
     if (!($server = IO::Socket::INET->new(Proto => 'tcp', Listen => SOMAXCONN, ReuseAddr => 1, LocalAddr => $lint))) {
       mexit(2, "Couldn't be an inet domain server on $lint: $@");
     }
-    print L "listening on $lint pid $$\n";
+    print L "listening on $lint pid $$\n" if (!$opt{silent});
   }
   return($server);
 }
