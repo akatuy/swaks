@@ -878,6 +878,13 @@ sub munge_tls_cipher {
 	munge_general($lines, 'TLS started with cipher', 'TLS started with cipher .*', 'TLS started with cipher VERSION:CIPHER:BITS');
 }
 
+sub munge_time_lapse {
+	my $lines = shift;
+
+	munge_general($lines, '^=== response in', '^=== response in \d+\.\d+s', '=== response in FLOATs');
+	munge_general($lines, '^=== response in', '^=== response in \d+s', '=== response in INTs');
+}
+
 # this is just a convenience so I can add new munges without having to manually apply them to all test files
 sub munge_standard {
 	my $lines    = shift;
@@ -895,4 +902,5 @@ sub munge_standard {
 	munge_tls_available_protocols($lines);
 	munge_open2_failure($lines);
 	munge_tls_cipher($lines);
+	munge_time_lapse($lines);
 }
