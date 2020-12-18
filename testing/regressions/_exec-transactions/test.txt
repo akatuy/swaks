@@ -170,7 +170,24 @@
    15 --drop-after data
    16 --drop-after dot
 
-part-0400-pipelining
+05300 - output options
+    0 --suppress-data
+    1 --show-time-lapse
+    2 --show-time-lapse i
+    3 --no-info-hints
+    4 --no-send-hints
+    5 --no-receive-hints
+    6 --no-hints
+    7 --show-raw-text
+    8 --hide-receive
+    9 --hide-send
+   10 --hide-informational
+   11 --hide-all
+   12 --silent   (no errors)
+   13 --silent   (errors)
+   14 --silent 1 (errors)
+   15 --silent 2 (errors)
+   16 --silent 3 (errors)
 
 
 ../../swaks --server g3 --port 1025 --to accept@node.example.com --from jj33@pobox.com --helo hserver --drop-after data
