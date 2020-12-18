@@ -72,6 +72,9 @@ acl_smtp_data_prdr =    acl_check_prdr
 acl_smtp_data =         acl_check_data
 
 acl_smtp_auth = acl_check_auth
+acl_smtp_mail = acl_check_mail
+acl_smtp_predata = acl_check_predata
+
 
 # You should not change those settings until you understand how ACLs work.
 
@@ -580,6 +583,17 @@ acl_check_data:
 
 
   # Accept the message.
+
+  accept
+
+acl_check_mail:
+  deny message = Forced failure by sender
+       senders = ^mail-fail
+  accept
+
+acl_check_predata:
+  deny message = Forced failure by sender
+       senders = ^predata-fail
 
   accept
 
