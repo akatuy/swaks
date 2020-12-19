@@ -71,9 +71,6 @@ if ($swaksScript) {
 	my $support = `$swaksScript --support 2>&1`;
 	if ($support =~ /not available/) {
 		print "NOK swaks must have all optional modules installed to run test script (see $swaksScript --support)\n";
-		if ($support =~ /requires Authen::NTLM/) {
-			print "    (note that Authen::NTLM support can be faked by setting PERL5LIB to lib/authen-ntlm-local)\n";
-		}
 	}
 	else {
 		print "ok  swaks optional modules\n";
