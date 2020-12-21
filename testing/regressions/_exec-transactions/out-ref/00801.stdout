@@ -1,5 +1,5 @@
-=== Trying pipe to %TEST_SERVER% --silent --domain pipe   /path/to/TESTDIR/part-0800-proxy-read.txt   /path/to/TESTDIR/part-0000-connect-standard.txt   /path/to/TESTDIR/part-0101-ehlo-all.txt   /path/to/TESTDIR/part-1000-mail-basic.txt   /path/to/TESTDIR/part-1100-rcpt-basic-accept.txt   /path/to/TESTDIR/part-2500-data-accept-basic.txt   /path/to/TESTDIR/part-3000-shutdown-accept.txt   ...
-=== Connected to %TEST_SERVER% --silent --domain pipe   /path/to/TESTDIR/part-0800-proxy-read.txt   /path/to/TESTDIR/part-0000-connect-standard.txt   /path/to/TESTDIR/part-0101-ehlo-all.txt   /path/to/TESTDIR/part-1000-mail-basic.txt   /path/to/TESTDIR/part-1100-rcpt-basic-accept.txt   /path/to/TESTDIR/part-2500-data-accept-basic.txt   /path/to/TESTDIR/part-3000-shutdown-accept.txt   .
+=== Trying pipe to %TEST_SERVER% --silent --domain pipe   part-0800-proxy-read.txt   part-0000-connect-standard.txt   part-0101-ehlo-all.txt   part-1000-mail-basic.txt   part-1100-rcpt-basic-accept.txt   part-2500-data-accept-basic.txt   part-3000-shutdown-accept.txt   ...
+=== Connected to %TEST_SERVER% --silent --domain pipe   part-0800-proxy-read.txt   part-0000-connect-standard.txt   part-0101-ehlo-all.txt   part-1000-mail-basic.txt   part-1100-rcpt-basic-accept.txt   part-2500-data-accept-basic.txt   part-3000-shutdown-accept.txt   .
  -> PROXY TCP4 3.3.3.3 4.4.4.4 333 444
 <-  220 SERVER ESMTP ready
  -> EHLO hserver

@@ -1,5 +1,5 @@
-=== Trying pipe to %TEST_SERVER% --silent --domain pipe   /path/to/TESTDIR/part-0000-connect-standard.txt   /path/to/TESTDIR/part-0102-ehlo-xclient-fewer.txt   /path/to/TESTDIR/part-3000-shutdown-accept.txt   ...
-=== Connected to %TEST_SERVER% --silent --domain pipe   /path/to/TESTDIR/part-0000-connect-standard.txt   /path/to/TESTDIR/part-0102-ehlo-xclient-fewer.txt   /path/to/TESTDIR/part-3000-shutdown-accept.txt   .
+=== Trying pipe to %TEST_SERVER% --silent --domain pipe   part-0000-connect-standard.txt   part-0102-ehlo-xclient-fewer.txt   part-3000-shutdown-accept.txt   ...
+=== Connected to %TEST_SERVER% --silent --domain pipe   part-0000-connect-standard.txt   part-0102-ehlo-xclient-fewer.txt   part-3000-shutdown-accept.txt   .
 <-  220 SERVER ESMTP ready
  -> EHLO hserver
 <-  250-SERVER Hello Server [1.1.1.1]

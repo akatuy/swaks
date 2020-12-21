@@ -1,2 +1,0 @@
-get_line();
-send_line("221 SERVER closing connection");
