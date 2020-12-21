@@ -31,6 +31,7 @@ GetOptions(\%opt, 'port|p=s', 'interface|i=s', 'domain|d=s', 'silent|s!', 'inclu
 # s - silent (don't print transaction hints)
 # include files - if specified even once, no command line file will be checked.  If multiple, will be executed in order specified
 
+my $scriptDir   = "$Bin/scripts";
 my @scriptFiles = ();
 if (exists($opt{include}) && ref($opt{include}) eq 'ARRAY') {
   @scriptFiles = @{$opt{include}};
@@ -39,11 +40,14 @@ elsif (scalar(@ARGV)) {
   @scriptFiles = @ARGV;
 }
 else {
-  @scriptFiles = ($Bin . '/scripts/basic-successful-email.txt');
+  @scriptFiles = ($scriptDir . '/script-basic-success.txt');
 }
 
 for (my $i = 0; $i < @scriptFiles; $i++) {
   my($file, @tokens) = split(/::/, $scriptFiles[$i]);
+  if ($file !~ m%[/\\]%) {
+    $file = "$scriptDir/$file";
+  }
 
   if (!-f $file) {
     mexit(1, "script file $file does not exist\n");
@@ -92,8 +96,8 @@ sub handle_script_file {
   print "Run script file $file\n" if (!$opt{silent});
   open(my $fh, "<$file") || die "Can't open $file: $!\n";
   while (defined(my $l = <$fh>)) {
-    if ($l =~ /^include\(['"](?:\$Bin\/)?(.*)['"]\);/) {
-      handle_script_file($Bin . '/' . $1);
+    if ($l =~ /^include\(['"](?:\$scriptDir\/)?(.*)['"]\);/) {
+      handle_script_file($scriptDir . '/' . $1);
     }
     else {
       if (ref($args)) {
